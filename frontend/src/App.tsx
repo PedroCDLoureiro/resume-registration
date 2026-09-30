@@ -1,9 +1,7 @@
+import CandidateRegistration from './pages/CandidateRegistration';
+
 function App() {
-    return (
-        <div>
-            <h1>Cadastro de Currículos</h1>
-        </div>
-    );
+    return <CandidateRegistration />;
 }
 
 export default App;
