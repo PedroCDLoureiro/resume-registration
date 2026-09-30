@@ -7,3 +7,15 @@ export async function getCandidates() {
         },
     });
 }
+
+export async function createCandidate(data: {
+    fullName: string;
+    email: string;
+    phone?: string;
+    desiredArea?: string;
+    professionalSummary?: string;
+}) {
+    return prisma.candidate.create({
+        data,
+    });
+}
