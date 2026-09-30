@@ -4,6 +4,7 @@ import {
     createCandidate as createCandidateService,
     getCandidateById,
     updateCandidate as updateCandidateService,
+    deleteCandidate as deleteCandidateService,
 } from '../services/candidate.service';
 
 export async function listCandidates(_req: Request, res: Response) {
@@ -144,6 +145,36 @@ export async function updateCandidate(req: Request, res: Response) {
 
         return res.status(500).json({
             message: 'Erro ao atualizar candidato.',
+        });
+    }
+}
+
+export async function deleteCandidate(req: Request, res: Response) {
+    try {
+        const id = Number(req.params.id);
+
+        if (Number.isNaN(id)) {
+            return res.status(400).json({
+                message: 'ID do candidato inválido.',
+            });
+        }
+
+        const existingCandidate = await getCandidateById(id);
+
+        if (!existingCandidate) {
+            return res.status(404).json({
+                message: 'Candidato não encontrado.',
+            });
+        }
+
+        await deleteCandidateService(id);
+
+        return res.status(204).send();
+    } catch (error) {
+        console.error(error);
+
+        return res.status(500).json({
+            message: 'Erro ao excluir candidato.',
         });
     }
 }

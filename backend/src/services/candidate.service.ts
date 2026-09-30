@@ -45,3 +45,11 @@ export async function updateCandidate(
         data,
     });
 }
+
+export async function deleteCandidate(id: number) {
+    return prisma.candidate.delete({
+        where: {
+            id,
+        },
+    });
+}
