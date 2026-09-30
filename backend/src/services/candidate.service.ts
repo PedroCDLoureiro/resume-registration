@@ -19,3 +19,11 @@ export async function createCandidate(data: {
         data,
     });
 }
+
+export async function getCandidateById(id: number) {
+    return prisma.candidate.findUnique({
+        where: {
+            id,
+        },
+    });
+}
