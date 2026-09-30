@@ -4,17 +4,20 @@ import type { CreateCandidateData } from '../types/candidate';
 
 interface CandidateFormProps {
     onSubmit: (data: CreateCandidateData) => Promise<boolean>;
+    initialData?: CreateCandidateData;
     loading?: boolean;
 }
 
-function CandidateForm({ onSubmit, loading = false }: CandidateFormProps) {
-    const [formData, setFormData] = useState<CreateCandidateData>({
-        fullName: '',
-        email: '',
-        phone: '',
-        desiredArea: '',
-        professionalSummary: '',
-    });
+function CandidateForm({ onSubmit, initialData, loading = false }: CandidateFormProps) {
+    const [formData, setFormData] = useState<CreateCandidateData>(
+        initialData ?? {
+            fullName: '',
+            email: '',
+            phone: '',
+            desiredArea: '',
+            professionalSummary: '',
+        }
+    );
 
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();

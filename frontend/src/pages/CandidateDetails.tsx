@@ -59,6 +59,8 @@ function CandidateDetails() {
         <main>
             <Link to="/candidates">← Voltar para candidatos</Link>
 
+            <Link to={`/candidates/${candidate.id}/edit`}>Editar candidato</Link>
+
             <h1>{candidate.fullName}</h1>
 
             <p>
