@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import type { Candidate } from '../types/candidate';
 
 interface CandidateListProps {
@@ -32,6 +34,8 @@ function CandidateList({ candidates }: CandidateListProps) {
                             <strong>Resumo profissional:</strong> {candidate.professionalSummary}
                         </p>
                     )}
+
+                    <Link to={`/candidates/${candidate.id}`}>Ver detalhes</Link>
                 </article>
             ))}
         </section>

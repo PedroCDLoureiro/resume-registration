@@ -1,6 +1,6 @@
 import type { Candidate, CreateCandidateData } from '../types/candidate';
 
-const API_URL = 'http://localhost:3000/api/candidates';
+const API_URL = `${import.meta.env.VITE_API_URL}/candidates`;
 
 export async function createCandidate(data: CreateCandidateData): Promise<Candidate> {
     const response = await fetch(API_URL, {
