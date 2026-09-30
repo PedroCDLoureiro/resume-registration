@@ -17,12 +17,16 @@ function CandidateRegistration() {
             await createCandidate(data);
 
             setSuccess('Candidato cadastrado com sucesso!');
+
+            return true;
         } catch (error) {
             if (error instanceof Error) {
                 setError(error.message);
             } else {
                 setError('Error ao cadastrar candidato.');
             }
+
+            return false;
         } finally {
             setLoading(false);
         }

@@ -3,7 +3,7 @@ import type { FormEvent } from 'react';
 import type { CreateCandidateData } from '../types/candidate';
 
 interface CandidateFormProps {
-    onSubmit: (data: CreateCandidateData) => Promise<void>;
+    onSubmit: (data: CreateCandidateData) => Promise<boolean>;
     loading?: boolean;
 }
 
@@ -19,7 +19,21 @@ function CandidateForm({ onSubmit, loading = false }: CandidateFormProps) {
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
-        await onSubmit(formData);
+        const success = await onSubmit(formData);
+
+        if (success) {
+            resetForm();
+        }
+    }
+
+    function resetForm() {
+        setFormData({
+            fullName: '',
+            email: '',
+            phone: '',
+            desiredArea: '',
+            professionalSummary: '',
+        });
     }
 
     return (
