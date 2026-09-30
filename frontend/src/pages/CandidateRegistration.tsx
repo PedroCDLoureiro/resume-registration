@@ -23,7 +23,7 @@ function CandidateRegistration() {
             if (error instanceof Error) {
                 setError(error.message);
             } else {
-                setError('Error ao cadastrar candidato.');
+                setError('Erro ao cadastrar candidato.');
             }
 
             return false;

@@ -1,7 +1,7 @@
-import CandidateRegistration from './pages/CandidateRegistration';
+import AppRoutes from './routes/AppRoutes';
 
 function App() {
-    return <CandidateRegistration />;
+    return <AppRoutes />;
 }
 
 export default App;

@@ -19,3 +19,15 @@ export async function createCandidate(data: CreateCandidateData): Promise<Candid
 
     return result;
 }
+
+export async function getCandidates(): Promise<Candidate[]> {
+    const response = await fetch(API_URL);
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(result.message || 'Erro ao buscar candidatos.');
+    }
+
+    return result;
+}
