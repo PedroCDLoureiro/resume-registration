@@ -1,0 +1,21 @@
+import type { Candidate, CreateCandidateData } from '../types/candidate';
+
+const API_URL = 'http://localhost:3000/api/candidates';
+
+export async function createCandidate(data: CreateCandidateData): Promise<Candidate> {
+    const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(result.message || 'Erro ao cadastrar candidato.');
+    }
+
+    return result;
+}
