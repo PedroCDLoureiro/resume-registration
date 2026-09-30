@@ -27,3 +27,21 @@ export async function getCandidateById(id: number) {
         },
     });
 }
+
+export async function updateCandidate(
+    id: number,
+    data: {
+        fullName: string;
+        email: string;
+        phone?: string;
+        desiredArea?: string;
+        professionalSummary?: string;
+    }
+) {
+    return prisma.candidate.update({
+        where: {
+            id,
+        },
+        data,
+    });
+}
