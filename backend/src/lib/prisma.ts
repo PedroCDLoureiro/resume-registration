@@ -1,18 +1,32 @@
 import 'dotenv/config';
 
-import { PrismaClient } from '../generated/prisma/client';
 import { PrismaMssql } from '@prisma/adapter-mssql';
+import { PrismaClient } from '../generated/prisma/client';
+
+const server = process.env.DB_SERVER;
+const port = Number(process.env.DB_PORT ?? 1433);
+const database = process.env.DB_NAME;
+const userName = process.env.DB_USER;
+const password = process.env.DB_PASSWORD;
+
+if (!server || !database || !userName || !password) {
+    throw new Error('Variáveis de ambiente do banco de dados não configuradas.');
+}
+
+if (Number.isNaN(port)) {
+    throw new Error('DB_PORT deve ser um número válido.');
+}
 
 const adapter = new PrismaMssql({
-    server: 'DESKTOP-AF71I7O',
-    port: 1433,
-    database: 'ResumeRegistration',
+    server,
+    port,
+    database,
 
     authentication: {
         type: 'default',
         options: {
-            userName: 'resume_app',
-            password: 'Resume@123456',
+            userName,
+            password,
         },
     },
 
