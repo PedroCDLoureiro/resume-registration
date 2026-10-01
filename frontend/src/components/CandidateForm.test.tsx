@@ -118,4 +118,33 @@ describe('CandidateForm', () => {
             professionalSummary: '',
         });
     });
+
+    it('deve preencher os campos quando receber initialData', () => {
+        const handleSubmit = vi.fn();
+
+        render(
+            <CandidateForm
+                onSubmit={handleSubmit}
+                initialData={{
+                    fullName: 'Pedro Loureiro',
+                    email: 'pedro@email.com',
+                    phone: '(41) 99999-9999',
+                    desiredArea: 'Frontend',
+                    professionalSummary: 'Desenvolvedor com experiência em React.',
+                }}
+            />
+        );
+
+        expect(screen.getByLabelText('Nome completo *')).toHaveValue('Pedro Loureiro');
+
+        expect(screen.getByLabelText('E-mail *')).toHaveValue('pedro@email.com');
+
+        expect(screen.getByLabelText('Telefone')).toHaveValue('(41) 99999-9999');
+
+        expect(screen.getByLabelText('Área/cargo desejado')).toHaveValue('Frontend');
+
+        expect(screen.getByLabelText('Resumo profissional')).toHaveValue(
+            'Desenvolvedor com experiência em React.'
+        );
+    });
 });
