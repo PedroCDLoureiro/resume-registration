@@ -37,10 +37,19 @@ function CandidateRegistration() {
 
     return (
         <main>
-            <h1>Cadastro de Candidato</h1>
+            <div className="page-header">
+                <div>
+                    <h1>Novo candidato</h1>
+                    <p>
+                        Cadastre um candidato manualmente ou importe os dados de um currículo em
+                        PDF.
+                    </p>
+                </div>
+            </div>
 
-            {success && <p>{success}</p>}
-            {error && <p>{error}</p>}
+            {success && <p className="feedback-success">{success}</p>}
+
+            {error && <p className="feedback-error">{error}</p>}
 
             <PdfUpload
                 onDataExtracted={(data) => {

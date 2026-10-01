@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { FormEvent } from 'react';
 import type { CreateCandidateData } from '../types/candidate';
+import './CandidateForm.css';
 
 interface CandidateFormProps {
     onSubmit: (data: CreateCandidateData) => Promise<boolean>;
@@ -52,8 +53,8 @@ function CandidateForm({
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
+        <form className="candidate-form" onSubmit={handleSubmit}>
+            <div className="form-field">
                 <label htmlFor="fullName">Nome completo *</label>
 
                 <input
@@ -70,7 +71,7 @@ function CandidateForm({
                 />
             </div>
 
-            <div>
+            <div className="form-field">
                 <label htmlFor="email">E-mail *</label>
 
                 <input
@@ -87,7 +88,7 @@ function CandidateForm({
                 />
             </div>
 
-            <div>
+            <div className="form-field">
                 <label htmlFor="phone">Telefone</label>
 
                 <input
@@ -104,7 +105,7 @@ function CandidateForm({
                 />
             </div>
 
-            <div>
+            <div className="form-field">
                 <label htmlFor="desiredArea">Área/cargo desejado</label>
 
                 <input
@@ -121,7 +122,7 @@ function CandidateForm({
                 />
             </div>
 
-            <div>
+            <div className="form-field">
                 <label htmlFor="professionalSummary">Resumo profissional</label>
 
                 <textarea
@@ -137,7 +138,7 @@ function CandidateForm({
                 />
             </div>
 
-            <button type="submit" disabled={loading}>
+            <button className="form-submit" type="submit" disabled={loading}>
                 {loading ? 'Salvando...' : submitLabel}
             </button>
         </form>

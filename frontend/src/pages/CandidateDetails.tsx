@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import type { Candidate } from '../types/candidate';
+import './CandidateDetails.css';
 
 const API_URL = `${import.meta.env.VITE_API_URL}/candidates`;
 
@@ -73,10 +74,12 @@ function CandidateDetails() {
 
     if (error) {
         return (
-            <main>
-                <p>{error}</p>
+            <main className="candidate-details">
+                <Link to="/candidates" className="candidate-details-back">
+                    ← Voltar para candidatos
+                </Link>
 
-                <Link to="/candidates">Voltar para candidatos</Link>
+                <p className="feedback-error">{error}</p>
             </main>
         );
     }
@@ -86,40 +89,58 @@ function CandidateDetails() {
     }
 
     return (
-        <main>
-            <Link to="/candidates">← Voltar para candidatos</Link>
+        <main className="candidate-details">
+            <Link to="/candidates" className="candidate-details-back">
+                ← Voltar para candidatos
+            </Link>
 
-            <Link to={`/candidates/${candidate.id}/edit`}>Editar candidato</Link>
+            <article className="candidate-details-card">
+                <header className="candidate-details-header">
+                    <h1>{candidate.fullName}</h1>
 
-            <button type="button" onClick={handleDelete}>
-                Excluir candidato
-            </button>
+                    <div className="candidate-details-actions">
+                        <Link
+                            to={`/candidates/${candidate.id}/edit`}
+                            className="candidate-details-button"
+                        >
+                            Editar
+                        </Link>
 
-            <h1>{candidate.fullName}</h1>
+                        <button
+                            type="button"
+                            className="candidate-details-button candidate-details-button-danger"
+                            onClick={handleDelete}
+                        >
+                            Excluir
+                        </button>
+                    </div>
+                </header>
 
-            <p>
-                <strong>E-mail:</strong> {candidate.email}
-            </p>
+                <div className="candidate-details-info">
+                    <p>
+                        <strong>E-mail:</strong> {candidate.email}
+                    </p>
 
-            {candidate.phone && (
-                <p>
-                    <strong>Telefone:</strong> {candidate.phone}
-                </p>
-            )}
+                    {candidate.phone && (
+                        <p>
+                            <strong>Telefone:</strong> {candidate.phone}
+                        </p>
+                    )}
 
-            {candidate.desiredArea && (
-                <p>
-                    <strong>Área desejada:</strong> {candidate.desiredArea}
-                </p>
-            )}
-
-            {candidate.professionalSummary && (
-                <div>
-                    <h2>Resumo profissional</h2>
-
-                    <p>{candidate.professionalSummary}</p>
+                    {candidate.desiredArea && (
+                        <p>
+                            <strong>Área desejada:</strong> {candidate.desiredArea}
+                        </p>
+                    )}
                 </div>
-            )}
+
+                {candidate.professionalSummary && (
+                    <section className="candidate-details-summary">
+                        <h2>Resumo profissional</h2>
+                        <p>{candidate.professionalSummary}</p>
+                    </section>
+                )}
+            </article>
         </main>
     );
 }

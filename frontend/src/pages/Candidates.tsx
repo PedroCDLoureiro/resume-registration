@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import CandidadeList from '../components/CandidateList';
+import { Link } from 'react-router-dom';
+
 import { getCandidates } from '../services/candidateService';
 import type { Candidate } from '../types/candidate';
 import CandidateList from '../components/CandidateList';
@@ -33,8 +34,19 @@ function Candidates() {
 
     return (
         <main>
-            <h1>Candidatos Cadastrados</h1>
+            <div className="page-header">
+                <div>
+                    <h1>Candidatos</h1>
+                    <p>Consulte e gerencie os candidatos cadastrados.</p>
+                </div>
+
+                <Link to="/candidates/new" className="page-header-button">
+                    Novo candidato
+                </Link>
+            </div>
+
             {error && <p>{error}</p>}
+
             <CandidateList candidates={candidates} />
         </main>
     );

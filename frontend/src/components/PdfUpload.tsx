@@ -1,5 +1,6 @@
 import { useState, type ChangeEvent } from 'react';
 import { parseCandidatePdf } from '../services/candidateService';
+import './PdfUpload.css';
 
 interface PdfUploadProps {
     onDataExtracted: (data: { fullName?: string; email?: string; phone?: string }) => void;
@@ -66,8 +67,13 @@ function PdfUpload({ onDataExtracted }: PdfUploadProps) {
     }
 
     return (
-        <section>
+        <section className="pdf-upload">
             <h2>Importar currículo em PDF</h2>
+
+            <p className="pdf-upload-description">
+                Envie seu currículo para preencher automaticamente nome, e-mail e telefone. Você
+                poderá revisar os dados antes de cadastrar.
+            </p>
 
             <input
                 type="file"
@@ -76,13 +82,13 @@ function PdfUpload({ onDataExtracted }: PdfUploadProps) {
                 disabled={loading}
             />
 
-            <p>Tamanho máximo: 5 MB.</p>
+            <p className="pdf-upload-description">Tamanho máximo: 5 MB.</p>
 
-            {loading && <p>Processando PDF...</p>}
+            {loading && <p className="pdf-upload-message">Processando PDF...</p>}
 
-            {success && <p>{success}</p>}
+            {success && <p className="pdf-upload-message feedback-success">{success}</p>}
 
-            {error && <p>{error}</p>}
+            {error && <p className="pdf-upload-message feedback-error">{error}</p>}
         </section>
     );
 }

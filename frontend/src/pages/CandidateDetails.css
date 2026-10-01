@@ -1,0 +1,118 @@
+.candidate-details {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.candidate-details-back {
+    display: inline-block;
+    margin-bottom: 24px;
+    color: #4b5563;
+    font-weight: 600;
+}
+
+.candidate-details-back:hover {
+    color: #111827;
+}
+
+.candidate-details-card {
+    padding: 28px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.candidate-details-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.candidate-details-header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.candidate-details-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.candidate-details-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 14px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    background: #ffffff;
+    color: #1f2937;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.candidate-details-button:hover {
+    background: #f3f4f6;
+}
+
+.candidate-details-button-danger {
+    border-color: #fecaca;
+    color: #b91c1c;
+}
+
+.candidate-details-button-danger:hover {
+    background: #fef2f2;
+}
+
+.candidate-details-info {
+    display: grid;
+    gap: 14px;
+    margin-top: 24px;
+}
+
+.candidate-details-info p {
+    margin: 0;
+    color: #4b5563;
+}
+
+.candidate-details-info strong {
+    color: #1f2937;
+}
+
+.candidate-details-summary {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.candidate-details-summary h2 {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.candidate-details-summary p {
+    margin: 0;
+    line-height: 1.7;
+    white-space: pre-wrap;
+}
+
+@media (max-width: 600px) {
+    .candidate-details-card {
+        padding: 20px;
+    }
+
+    .candidate-details-header {
+        flex-direction: column;
+    }
+
+    .candidate-details-actions {
+        width: 100%;
+    }
+
+    .candidate-details-button {
+        flex: 1;
+    }
+}
