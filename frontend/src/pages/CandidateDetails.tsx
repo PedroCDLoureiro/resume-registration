@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import type { Candidate } from '../types/candidate';
+import { getCandidateById, deleteCandidate } from '../services/candidateService';
 import './CandidateDetails.css';
-
-const API_URL = `${import.meta.env.VITE_API_URL}/candidates`;
 
 function CandidateDetails() {
     const { id } = useParams();
@@ -17,14 +16,7 @@ function CandidateDetails() {
     useEffect(() => {
         async function loadCandidate() {
             try {
-                const response = await fetch(`${API_URL}/${id}`);
-
-                const data = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(data.message || 'Erro ao buscar candidato.');
-                }
-
+                const data = await getCandidateById(id!);
                 setCandidate(data);
             } catch (error) {
                 if (error instanceof Error) {
@@ -48,16 +40,7 @@ function CandidateDetails() {
         }
 
         try {
-            const response = await fetch(`${API_URL}/${id}`, {
-                method: 'DELETE',
-            });
-
-            const data = response.status === 204 ? null : await response.json();
-
-            if (!response.ok) {
-                throw new Error(data?.message || 'Erro ao excluir candidato.');
-            }
-
+            await deleteCandidate(id!);
             navigate('/candidates');
         } catch (error) {
             if (error instanceof Error) {

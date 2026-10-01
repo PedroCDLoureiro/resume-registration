@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import CandidateForm from '../components/CandidateForm';
+import { getCandidateById, updateCandidate } from '../services/candidateService';
 import type { Candidate, CreateCandidateData } from '../types/candidate';
-
-const API_URL = `${import.meta.env.VITE_API_URL}/candidates`;
 
 function CandidateEdit() {
     const { id } = useParams();
@@ -17,13 +16,7 @@ function CandidateEdit() {
     useEffect(() => {
         async function loadCandidate() {
             try {
-                const response = await fetch(`${API_URL}/${id}`);
-                const data = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(data.message || 'Erro ao buscar candidato.');
-                }
-
+                const data = await getCandidateById(id!);
                 setCandidate(data);
             } catch (error) {
                 if (error instanceof Error) {
@@ -44,19 +37,7 @@ function CandidateEdit() {
         setError('');
 
         try {
-            const response = await fetch(`${API_URL}/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
-
-            const result = await response.json();
-
-            if (!response.ok) {
-                throw new Error(result.message || 'Erro ao atualizar candidato.');
-            }
+            await updateCandidate(id!, data);
 
             navigate(`/candidates/${id}`);
 
