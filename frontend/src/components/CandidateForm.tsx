@@ -26,19 +26,57 @@ function CandidateForm({
         }
     );
 
+    const [errors, setErrors] = useState<{
+        fullName?: string;
+        email?: string;
+    }>({});
+
     useEffect(() => {
         if (initialData) {
             setFormData(initialData);
+            setErrors({});
         }
     }, [initialData]);
 
+    function validateForm() {
+        const newErrors: {
+            fullName?: string;
+            email?: string;
+        } = {};
+
+        if (!formData.fullName.trim()) {
+            newErrors.fullName = 'O nome completo é obrigatório.';
+        }
+
+        if (!formData.email.trim()) {
+            newErrors.email = 'O e-mail é obrigatório.';
+        } else {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailRegex.test(formData.email.trim())) {
+                newErrors.email = 'Informe um e-mail válido.';
+            }
+        }
+
+        setErrors(newErrors);
+
+        return Object.keys(newErrors).length === 0;
+    }
+
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
+
+        const isValid = validateForm();
+
+        if (!isValid) {
+            return;
+        }
 
         const success = await onSubmit(formData);
 
         if (success) {
             resetForm();
+            setErrors({});
         }
     }
 
@@ -59,6 +97,7 @@ function CandidateForm({
 
                 <input
                     id="fullName"
+                    className={errors.fullName ? 'input-error' : ''}
                     name="fullName"
                     type="text"
                     value={formData.fullName}
@@ -69,6 +108,8 @@ function CandidateForm({
                         })
                     }
                 />
+
+                {errors.fullName && <span className="form-error">{errors.fullName}</span>}
             </div>
 
             <div className="form-field">
@@ -76,6 +117,7 @@ function CandidateForm({
 
                 <input
                     id="email"
+                    className={errors.email ? 'input-error' : ''}
                     name="email"
                     type="email"
                     value={formData.email}
@@ -86,6 +128,8 @@ function CandidateForm({
                         })
                     }
                 />
+
+                {errors.email && <span className="form-error">{errors.email}</span>}
             </div>
 
             <div className="form-field">

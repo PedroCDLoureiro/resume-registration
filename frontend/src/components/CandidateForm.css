@@ -66,6 +66,20 @@
     cursor: not-allowed;
 }
 
+.form-error {
+    font-size: 0.85rem;
+    color: #b91c1c;
+}
+
+.form-field .input-error {
+    border-color: #dc2626;
+}
+
+.form-field .input-error:focus {
+    border-color: #dc2626;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+}
+
 @media (max-width: 600px) {
     .candidate-form {
         padding: 20px;
