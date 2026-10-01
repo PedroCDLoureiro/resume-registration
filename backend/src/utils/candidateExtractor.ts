@@ -80,11 +80,9 @@ export function extractName(text: string): string | undefined {
         return undefined;
     }
 
-    const possibleLines = lines.slice(Math.max(0, emailIndex - 3), emailIndex);
+    const possibleLines = lines.slice(0, emailIndex);
 
-    for (let i = possibleLines.length - 1; i >= 0; i--) {
-        const line = possibleLines[i];
-
+    for (const line of possibleLines) {
         if (isLikelyName(line)) {
             return line;
         }

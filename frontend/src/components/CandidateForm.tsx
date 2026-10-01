@@ -91,7 +91,7 @@ function CandidateForm({
     }
 
     return (
-        <form className="candidate-form" onSubmit={handleSubmit}>
+        <form className="candidate-form" onSubmit={handleSubmit} noValidate>
             <div className="form-field">
                 <label htmlFor="fullName">Nome completo *</label>
 
