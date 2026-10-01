@@ -106,7 +106,12 @@ function CandidateEdit() {
 
             {error && <p>{error}</p>}
 
-            <CandidateForm initialData={initialData} onSubmit={handleSubmit} loading={saving} />
+            <CandidateForm
+                initialData={initialData}
+                onSubmit={handleSubmit}
+                loading={saving}
+                submitLabel="Salvar alterações"
+            />
         </main>
     );
 }

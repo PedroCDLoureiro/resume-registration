@@ -6,9 +6,15 @@ interface CandidateFormProps {
     onSubmit: (data: CreateCandidateData) => Promise<boolean>;
     initialData?: CreateCandidateData;
     loading?: boolean;
+    submitLabel?: string;
 }
 
-function CandidateForm({ onSubmit, initialData, loading = false }: CandidateFormProps) {
+function CandidateForm({
+    onSubmit,
+    initialData,
+    loading = false,
+    submitLabel = 'Cadastrar',
+}: CandidateFormProps) {
     const [formData, setFormData] = useState<CreateCandidateData>(
         initialData ?? {
             fullName: '',
@@ -126,7 +132,7 @@ function CandidateForm({ onSubmit, initialData, loading = false }: CandidateForm
             </div>
 
             <button type="submit" disabled={loading}>
-                {loading ? 'Cadastrando...' : 'Cadastrar'}
+                {loading ? 'Salvando...' : submitLabel}
             </button>
         </form>
     );
