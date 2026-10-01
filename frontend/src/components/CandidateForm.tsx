@@ -1,4 +1,4 @@
-import { useState, useEffect, type ChangeEvent } from 'react';
+import { useState, useEffect } from 'react';
 import type { FormEvent } from 'react';
 import type { CreateCandidateData } from '../types/candidate';
 

@@ -5,6 +5,8 @@ interface PdfUploadProps {
     onDataExtracted: (data: { fullName?: string; email?: string; phone?: string }) => void;
 }
 
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
 function PdfUpload({ onDataExtracted }: PdfUploadProps) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -19,13 +21,39 @@ function PdfUpload({ onDataExtracted }: PdfUploadProps) {
 
         setError('');
         setSuccess('');
+
+        const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+
+        if (!isPdf) {
+            setError('Selecione um arquivo PDF válido.');
+            return;
+        }
+
+        if (file.size > MAX_FILE_SIZE) {
+            setError('O PDF deve ter no máximo 5 MB.');
+            return;
+        }
+
         setLoading(true);
 
         try {
             const result = await parseCandidatePdf(file);
-            onDataExtracted(result.data);
 
-            setSuccess(result.message || 'Dados extraídos com sucesso!');
+            const data = result.data;
+
+            onDataExtracted(data);
+
+            const hasExtractedData = data.fullName || data.email || data.phone;
+
+            if (hasExtractedData) {
+                setSuccess(
+                    'Dados extraídos com sucesso! Confira as informações antes de cadastrar.'
+                );
+            } else {
+                setSuccess(
+                    'O PDF foi processado, mas não foi possível identificar os dados. Preencha o formulário manualmente.'
+                );
+            }
         } catch (error) {
             if (error instanceof Error) {
                 setError(error.message);
@@ -43,14 +71,17 @@ function PdfUpload({ onDataExtracted }: PdfUploadProps) {
 
             <input
                 type="file"
-                accept="application/pdf, .pdf"
+                accept="application/pdf,.pdf"
                 onChange={handleFileChange}
                 disabled={loading}
             />
 
+            <p>Tamanho máximo: 5 MB.</p>
+
             {loading && <p>Processando PDF...</p>}
 
             {success && <p>{success}</p>}
+
             {error && <p>{error}</p>}
         </section>
     );
