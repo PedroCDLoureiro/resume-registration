@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, type ChangeEvent } from 'react';
 import type { FormEvent } from 'react';
 import type { CreateCandidateData } from '../types/candidate';
 
@@ -24,6 +24,12 @@ function CandidateForm({
             professionalSummary: '',
         }
     );
+
+    useEffect(() => {
+        if (initialData) {
+            setFormData(initialData);
+        }
+    }, [initialData]);
 
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();

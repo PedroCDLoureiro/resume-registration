@@ -6,6 +6,8 @@ import {
     updateCandidate as updateCandidateService,
     deleteCandidate as deleteCandidateService,
 } from '../services/candidate.service';
+import { extractPdfText } from '../utils/pdfParser';
+import { extractCandidateData } from '../utils/candidateExtractor';
 
 export async function listCandidates(_req: Request, res: Response) {
     try {
@@ -175,6 +177,36 @@ export async function deleteCandidate(req: Request, res: Response) {
 
         return res.status(500).json({
             message: 'Erro ao excluir candidato.',
+        });
+    }
+}
+
+export async function parsePdf(req: Request, res: Response) {
+    console.log('FILES:', req.files);
+    try {
+        if (!req.file) {
+            return res.status(400).json({
+                message: 'Envie um arquivo PDF.',
+            });
+        }
+
+        const text = await extractPdfText(req.file.buffer);
+
+        const candidateData = extractCandidateData(text);
+
+        return res.json({
+            data: candidateData,
+        });
+    } catch (error) {
+        console.error(error);
+
+        return res.status(200).json({
+            data: {
+                fullName: undefined,
+                email: undefined,
+                phone: undefined,
+            },
+            message: 'Não foi possível extrair os dados do PDF. Preencha o formulário manualmente.',
         });
     }
 }

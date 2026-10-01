@@ -31,3 +31,22 @@ export async function getCandidates(): Promise<Candidate[]> {
 
     return result;
 }
+
+export async function parseCandidatePdf(file: File) {
+    const formData = new FormData();
+
+    formData.append('file', file);
+
+    const response = await fetch(`${API_URL}/parse-pdf`, {
+        method: 'POST',
+        body: formData,
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(result.message || 'Erro ao processar PDF.');
+    }
+
+    return result;
+}
